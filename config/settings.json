@@ -1,0 +1,30 @@
+{
+    "active_character": "HuTao",
+    "app": {
+        "width": 200,
+        "height": 200,
+        "scale": 1.1,
+        "refresh_rate": 100,
+        "tts_api_url": "http://127.0.0.1:9880",
+        "enable_tts": true
+    },
+    "interaction": {
+        "random_talk": [
+            "呜哇！吓你一跳！",
+            "找本堂主有何贵干？",
+            "太阳出来我晒太阳，月亮出来我晒月亮咯~",
+            "起~飞~！",
+            "多埋一点，多埋一点...",
+            "新年快乐"
+        ]
+    },
+    "llm": {
+        "enable": true,
+        "provider": "siliconflow",
+        "api_key": "sk-qibltcjdyddtlbjyticvuwfgyqlmctfklkvsisdswmleepku",
+        "base_url": "https://api.siliconflow.cn/v1/chat/completions",
+        "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+    },
+    "active_avatar": "HuTao",
+    "active_voice": "HuTao"
+}

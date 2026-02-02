@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live2D Viewer</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: transparent; }
+        #canvas { width: 100%; height: 100%; display: block; }
+    </style>
+    <!-- Local Libraries -->
+    <script src="js/pixi.min.js"></script>
+    <script src="js/live2dcubismcore.min.js"></script>
+    <script src="js/cubism4.min.js"></script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        // Python will replace this path
+        const MODEL_PATH = "[[MODEL_PATH]]"; 
+        
+        // Scale/Position config (can be passed from Python too if needed)
+        const MODEL_SCALE = [[MODEL_SCALE]];
+        const MODEL_Y_OFFSET = [[MODEL_Y_OFFSET]];
+
+        (async function main() {
+            const app = new PIXI.Application({
+                view: document.getElementById('canvas'),
+                autoStart: true,
+                resizeTo: window,
+                transparent: true,
+                backgroundAlpha: 0
+            });
+
+            try {
+                const model = await PIXI.live2d.Live2DModel.from(MODEL_PATH);
+                
+                app.stage.addChild(model);
+
+                // 将模型暴露给全局，方便 Python 调用
+                window.l2d_model = model;
+
+                // 播放动作的函数
+                window.playMotion = function(group, index = 0) {
+                    console.log("Playing motion:", group);
+                    model.motion(group, index);
+                };
+
+                // Auto-fit logic
+                function resizeModel() {
+                    const scaleX = app.view.width / model.width;
+                    const scaleY = app.view.height / model.height;
+                    
+                    // Use a reasonable base scale, adjusted by user config
+                    // We want the model to fit nicely
+                    const baseScale = Math.min(app.view.width / model.internalModel.width, app.view.height / model.internalModel.height);
+                    
+                    // Apply user scale factor (default 1.0)
+                    model.scale.set(baseScale * MODEL_SCALE); // 0.8 is a good safe margin
+
+                    // Center X
+                    model.x = (app.view.width - model.width) / 2;
+                    
+                    // Position Y (often models are too high/low)
+                    model.y = (app.view.height - model.height) / 2 + (app.view.height * MODEL_Y_OFFSET);
+                }
+
+                resizeModel();
+                window.addEventListener('resize', resizeModel);
+                
+                // Add interaction (Tap)
+                model.on('hit', (hitAreas) => {
+                    if (hitAreas.includes('Body')) {
+                        model.motion('TapBody');
+                    }
+                    console.log('Hit:', hitAreas);
+                });
+
+            } catch (e) {
+                console.error("Failed to load Live2D model:", e);
+                document.body.innerHTML = "<h2 style='color:red'>Error loading Live2D</h2><p>" + e + "</p>";
+            }
+        })();
+    </script>
+</body>
+</html>
