@@ -1,25 +1,53 @@
-# Python
+# ==============================
+# Python 相关忽略（编译文件/环境）
+# ==============================
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 .Python
+# 虚拟环境
 env/
 venv/
+# 环境变量文件
 .env
 
-# Project Runtime
+# ==============================
+# 项目运行时生成文件
+# ==============================
 temp_speech.wav
 *.log
 
-# IDE
+# ==============================
+# IDE 配置文件（编辑器相关）
+# ==============================
 .idea/
 .vscode/
+# VS Code 额外配置
+*.code-workspace
+.settings/
+*.sublime-*
 
-# OS
+# ==============================
+# 操作系统自带文件
+# ==============================
+# Windows
 Thumbs.db
 Desktop.ini
+# Mac OS
 .DS_Store
+# Linux
+.Trash-*
 
-# Copyrighted Assets (Do not upload)
+# ==============================
+# 项目打包/构建产物（无需上传仓库）
+# ==============================
+build/
+dist/
+docs/
+AiPet.spec
+
+# ==============================
+# 受版权保护的素材（禁止上传）
+# ==============================
 resources/characters/HuTao/
