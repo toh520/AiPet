@@ -21,7 +21,7 @@
     "llm": {
         "enable": true,
         "provider": "siliconflow",
-        "api_key": "sk-qibltcjdyddtlbjyticvuwfgyqlmctfklkvsisdswmleepku",
+        "api_key": "",
         "base_url": "https://api.siliconflow.cn/v1/chat/completions",
         "model": "Qwen/Qwen3-8B"
     },
