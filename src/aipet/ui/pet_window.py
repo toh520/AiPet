@@ -27,12 +27,76 @@ from aipet.ui.settings_window import SettingsWindow
 class DesktopPet(QWidget):
     def __init__(self):
         super().__init__()
+        # 加载本地配置文件，如果不存在则尝试从 settings.json.example 复制
         self.config = load_json(CONFIG_PATH)
+        if not self.config:
+            example_path = CONFIG_PATH + ".example"
+            if os.path.exists(example_path):
+                print(f"config/settings.json 不存在，正在从 settings.json.example 复制默认配置...")
+                self.config = load_json(example_path)
+                if self.config:
+                    save_json(CONFIG_PATH, self.config)
+            
+            # 如果依然加载失败，使用硬编码默认值
+            if not self.config:
+                print("警告: 无法加载 settings.json 和 settings.json.example，使用硬编码默认配置。")
+                self.config = {
+                    "active_character": "furina",
+                    "active_avatar": "furina",
+                    "active_voice": "furina",
+                    "app": {
+                        "width": 200,
+                        "height": 200,
+                        "scale": 1.1,
+                        "refresh_rate": 100,
+                        "tts_api_url": "http://127.0.0.1:9880",
+                        "enable_tts": True,
+                        "chat_mode": "typewriter"
+                    },
+                    "interaction": {
+                        "random_talk": ["你好呀！", "本大明星登场！"],
+                        "thinking_talk": ["脑筋飞速运转中……", "等我一下下嘛……"]
+                    },
+                    "llm": {
+                        "enable": True,
+                        "provider": "siliconflow",
+                        "api_key": "your_api_key_here",
+                        "base_url": "https://api.siliconflow.cn/v1/chat/completions",
+                        "model": "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B"
+                    }
+                }
+                save_json(CONFIG_PATH, self.config)
+
         self.visual_profile = {}
         self.voice_profile = {}
         self.voice_full_profile = {}
-        self.active_avatar = self.config.get('active_avatar', 'HuTao')
-        self.active_voice = self.config.get('active_voice', 'HuTao')
+        
+        # 获取当前选中的形象和声音，若配置中没有则默认使用 furina
+        self.active_avatar = self.config.get('active_avatar', 'furina')
+        self.active_voice = self.config.get('active_voice', 'furina')
+        
+        # 校验形象和声音目录是否存在，若不存在（如 HuTao 被 .gitignore 忽略），则自动降级到存在的角色（如 furina）
+        if not os.path.exists(os.path.join(CHAR_DIR, self.active_avatar)):
+            print(f"警告: 形象目录 {self.active_avatar} 不存在，尝试降级。")
+            if os.path.exists(os.path.join(CHAR_DIR, "furina")):
+                self.active_avatar = "furina"
+            else:
+                dirs = [d for d in os.listdir(CHAR_DIR) if os.path.isdir(os.path.join(CHAR_DIR, d))]
+                if dirs:
+                    self.active_avatar = dirs[0]
+            self.config['active_avatar'] = self.active_avatar
+            save_json(CONFIG_PATH, self.config)
+
+        if not os.path.exists(os.path.join(CHAR_DIR, self.active_voice)):
+            print(f"警告: 声音目录 {self.active_voice} 不存在，尝试降级。")
+            if os.path.exists(os.path.join(CHAR_DIR, "furina")):
+                self.active_voice = "furina"
+            else:
+                dirs = [d for d in os.listdir(CHAR_DIR) if os.path.isdir(os.path.join(CHAR_DIR, d))]
+                if dirs:
+                    self.active_voice = dirs[0]
+            self.config['active_voice'] = self.active_voice
+            save_json(CONFIG_PATH, self.config)
         
         # 动画状态初始化
         self.current_frame = 0

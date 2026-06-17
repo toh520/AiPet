@@ -5,7 +5,7 @@
     "live2d_model": "",
     "live2d_scale": 1.0,
     "live2d_offset_y": 0.0,
-    "voice_mode": "gpt_sovits",
+    "voice_mode": "edge_tts",
     "tts": {
         "ref_audio": "voice/ref_1770049654.wav",
         "prompt_text": "人气太高了又不是我的错！那个词怎么说的来着？用来形容我的知名度刚好——",

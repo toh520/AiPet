@@ -77,3 +77,4 @@ src/aipet/services/gpt_sovits/tools/AP_BWE_main/24kto48k/
 *.pth
 *.ckpt
 *.onnx
+resources/models.zip

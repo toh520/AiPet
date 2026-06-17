@@ -757,8 +757,9 @@ class SettingsWindow(QWidget):
 
     def load_run_values(self):
         cfg = self.pet.config
-        self.avatar_selector.setCurrentText(cfg.get('active_avatar', 'HuTao'))
-        self.voice_selector.setCurrentText(cfg.get('active_voice', 'HuTao'))
+        # 若配置中无形象或声音信息，降级默认使用 furina
+        self.avatar_selector.setCurrentText(cfg.get('active_avatar', 'furina'))
+        self.voice_selector.setCurrentText(cfg.get('active_voice', 'furina'))
 
     def apply_mix_match(self):
         self.pet.update_mix_match(self.avatar_selector.currentText(), self.voice_selector.currentText())

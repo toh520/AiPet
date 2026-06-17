@@ -1,5 +1,5 @@
 {
-    "active_character": "HuTao",
+    "active_character": "furina",
     "app": {
         "width": 200,
         "height": 200,
@@ -36,6 +36,6 @@
         "base_url": "https://api.siliconflow.cn/v1/chat/completions",
         "model": "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B"
     },
-    "active_avatar": "HuTao",
-    "active_voice": "HuTao"
+    "active_avatar": "furina",
+    "active_voice": "furina"
 }
