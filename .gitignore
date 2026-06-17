@@ -50,7 +50,10 @@ AiPet.spec
 # ==============================
 # 受版权保护的素材（禁止上传）
 # ==============================
-resources/characters/HuTao/
+resources/characters/HuTao/live2d_model/
+resources/characters/HuTao/gpt_sovits/
+resources/characters/HuTao/rvc/
+resources/characters/HuTao/voice/
 
 # ==============================
 # 自定义忽略：阻止超大模型和本地虚拟环境上传
