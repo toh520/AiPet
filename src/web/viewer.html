@@ -46,6 +46,29 @@
                     model.motion(group, index);
                 };
 
+                // 说话口型随机开合控制 (Lip Sync 模拟)
+                let mouthTimer = null;
+                window.startSpeaking = function() {
+                    if (mouthTimer) clearInterval(mouthTimer);
+                    mouthTimer = setInterval(() => {
+                        if (window.l2d_model && window.l2d_model.internalModel && window.l2d_model.internalModel.coreModel) {
+                            // 生成 0.0 ~ 0.8 之间的随机嘴巴开合度，模拟真实说话效果
+                            const val = Math.random() * 0.8;
+                            window.l2d_model.internalModel.coreModel.setParameterValueById("ParamMouthOpen", val);
+                        }
+                    }, 100);
+                };
+
+                window.stopSpeaking = function() {
+                    if (mouthTimer) {
+                        clearInterval(mouthTimer);
+                        mouthTimer = null;
+                    }
+                    if (window.l2d_model && window.l2d_model.internalModel && window.l2d_model.internalModel.coreModel) {
+                        window.l2d_model.internalModel.coreModel.setParameterValueById("ParamMouthOpen", 0);
+                    }
+                };
+
                 // Auto-fit logic
                 function resizeModel() {
                     const scaleX = app.view.width / model.width;

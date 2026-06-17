@@ -1,0 +1,41 @@
+{
+    "active_character": "HuTao",
+    "app": {
+        "width": 200,
+        "height": 200,
+        "scale": 1.1,
+        "refresh_rate": 100,
+        "tts_api_url": "http://127.0.0.1:9880",
+        "enable_tts": true,
+        "chat_mode": "typewriter"
+    },
+    "interaction": {
+        "random_talk": [
+            "呜哇！吓你一跳！",
+            "找本堂主有何贵干？",
+            "太阳出来我晒太阳，月亮出来我晒月亮咯~",
+            "起~飞~！",
+            "多埋一点，多埋一点...",
+            "新年快乐"
+        ],
+        "thinking_talk": [
+            "哎呀，脑细胞在飞速燃烧啦，等我一下下嘛~",
+            "让我想想……再想两秒钟嘛！",
+            "别催啦别催啦，大脑要过载啦~",
+            "唔……脑筋正在飞速运转中，等我一下嘛！",
+            "哎呀，别急别急，正在努力思考中……",
+            "让我想想……正在拼命组织语言呢！",
+            "嘘——正在和脑海里的小精灵对话，等我几秒钟哦~",
+            "正在为您加载最完美的回答，马上就好啦！"
+        ]
+    },
+    "llm": {
+        "enable": true,
+        "provider": "siliconflow",
+        "api_key": "your_api_key_here",
+        "base_url": "https://api.siliconflow.cn/v1/chat/completions",
+        "model": "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B"
+    },
+    "active_avatar": "HuTao",
+    "active_voice": "HuTao"
+}
