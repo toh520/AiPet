@@ -59,7 +59,7 @@
 
 #### 💡 方案 A：懒人一键包安装（推荐，最省心 ⭐⭐⭐⭐⭐）
 我们已将所有底模完整打包并配置好了层级结构（名为 **`models.zip`**）。你无需一个个下载并新建文件夹，只需通过以下任意一个通道下载：
-*   **通道 1（国内极速云盘）**：[阿里云盘下载链接（提取码：xxxx）](https://www.aliyundrive.com/s/xxxx) 或 [百度网盘下载链接（提取码：xxxx）](https://pan.baidu.com/s/xxxx)
+*   **通道 1（国内极速云盘）**：暂无（请优先使用下方通道 2）
 *   **通道 2（GitHub Release）**：[GitHub Releases 官方发布页下载](https://github.com/toh520/AiPet/releases/download/v1.0/models.zip)
 
 **安装步骤**：将下载的一键包解压，把解压得到的整个 **`models` 文件夹** 拖入本项目的 **`resources/`** 目录下。
