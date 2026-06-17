@@ -41,9 +41,9 @@ class DesktopPet(QWidget):
             if not self.config:
                 print("警告: 无法加载 settings.json 和 settings.json.example，使用硬编码默认配置。")
                 self.config = {
-                    "active_character": "furina",
-                    "active_avatar": "furina",
-                    "active_voice": "furina",
+                    "active_character": "default_hutao",
+                    "active_avatar": "default_hutao",
+                    "active_voice": "default_hutao",
                     "app": {
                         "width": 200,
                         "height": 200,
@@ -54,7 +54,7 @@ class DesktopPet(QWidget):
                         "chat_mode": "typewriter"
                     },
                     "interaction": {
-                        "random_talk": ["你好呀！", "本大明星登场！"],
+                        "random_talk": ["呜哇！吓你一跳！", "找本堂主有何贵干？"],
                         "thinking_talk": ["脑筋飞速运转中……", "等我一下下嘛……"]
                     },
                     "llm": {
@@ -71,14 +71,16 @@ class DesktopPet(QWidget):
         self.voice_profile = {}
         self.voice_full_profile = {}
         
-        # 获取当前选中的形象和声音，若配置中没有则默认使用 furina
-        self.active_avatar = self.config.get('active_avatar', 'furina')
-        self.active_voice = self.config.get('active_voice', 'furina')
+        # 获取当前选中的形象和声音，若配置中没有则默认使用 default_hutao
+        self.active_avatar = self.config.get('active_avatar', 'default_hutao')
+        self.active_voice = self.config.get('active_voice', 'default_hutao')
         
-        # 校验形象和声音目录是否存在，若不存在（如 HuTao 被 .gitignore 忽略），则自动降级到存在的角色（如 furina）
+        # 校验形象和声音目录是否存在，若不存在，则自动降级到存在的角色（优先 default_hutao -> furina）
         if not os.path.exists(os.path.join(CHAR_DIR, self.active_avatar)):
             print(f"警告: 形象目录 {self.active_avatar} 不存在，尝试降级。")
-            if os.path.exists(os.path.join(CHAR_DIR, "furina")):
+            if os.path.exists(os.path.join(CHAR_DIR, "default_hutao")):
+                self.active_avatar = "default_hutao"
+            elif os.path.exists(os.path.join(CHAR_DIR, "furina")):
                 self.active_avatar = "furina"
             else:
                 dirs = [d for d in os.listdir(CHAR_DIR) if os.path.isdir(os.path.join(CHAR_DIR, d))]
@@ -89,7 +91,9 @@ class DesktopPet(QWidget):
 
         if not os.path.exists(os.path.join(CHAR_DIR, self.active_voice)):
             print(f"警告: 声音目录 {self.active_voice} 不存在，尝试降级。")
-            if os.path.exists(os.path.join(CHAR_DIR, "furina")):
+            if os.path.exists(os.path.join(CHAR_DIR, "default_hutao")):
+                self.active_voice = "default_hutao"
+            elif os.path.exists(os.path.join(CHAR_DIR, "furina")):
                 self.active_voice = "furina"
             else:
                 dirs = [d for d in os.listdir(CHAR_DIR) if os.path.isdir(os.path.join(CHAR_DIR, d))]
